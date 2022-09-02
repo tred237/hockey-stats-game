@@ -1,4 +1,12 @@
 const init = () => {
+    const getCurrentDate = () => {
+        const date = new Date();
+        let year = date.getFullYear().toString();
+        let month = date.getMonth().toString().length === 1 ? `0${date.getMonth().toString()}` : date.getMonth().toString();
+        let day = date.getDate().toString().length === 1 ? `0${date.getDate().toString()}` : date.getDate().toString();
+        return `${year}${month}${day}`;
+    }
+
     function createdDropDownElement (element, category) {
         const dropdown = document.getElementById(`${category}-dropdown`); 
         const option = document.createElement('option');
@@ -13,13 +21,8 @@ const init = () => {
         fetch(seasonsEndPoint)
         .then(res => res.json())
         .then(data => {
-            const date = new Date();
-            let year = date.getFullYear().toString();
-            let month = date.getMonth().toString().length === 1 ? `0${date.getMonth().toString()}` : date.getMonth().toString();
-            let day = date.getDate().toString().length === 1 ? `0${date.getDate().toString()}` : date.getDate().toString();
-
             data.seasons.forEach(element => {
-                if(element.seasonEndDate.replaceAll('-','') < `${year}${month}${day}`) createdDropDownElement(element.seasonId, 'season');
+                if(element.seasonEndDate.replaceAll('-','') < getCurrentDate()) createdDropDownElement(element.seasonId, 'season');
             })
         })
     }
