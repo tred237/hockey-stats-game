@@ -1,11 +1,11 @@
 const init = () => {
-    function createdDropDownElement (seasonId) {
-        const seasonDropDown = document.getElementById('season-dropdown'); 
+    function createdDropDownElement (element, category) {
+        const dropdown = document.getElementById(`${category}-dropdown`); 
         const option = document.createElement('option');
-        option.value = seasonId;
-        option.textContent = seasonId;
-        seasonDropDown.appendChild(option);
-        seasonDropDown.insertBefore(option, seasonDropDown.children[1]);
+        option.value = element;
+        option.textContent = element;
+        dropdown.appendChild(option);
+        dropdown.insertBefore(option, dropdown.children[1]);
     }
 
     function populateSeasonDropDown() {
@@ -19,7 +19,7 @@ const init = () => {
             let day = date.getDate().toString().length === 1 ? `0${date.getDate().toString()}` : date.getDate().toString();
 
             data.seasons.forEach(element => {
-                if(element.seasonEndDate.replaceAll('-','') < `${year}${month}${day}`) createdDropDownElement(element.seasonId);
+                if(element.seasonEndDate.replaceAll('-','') < `${year}${month}${day}`) createdDropDownElement(element.seasonId, 'season');
             })
         })
     }
