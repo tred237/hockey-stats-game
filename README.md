@@ -1,4 +1,4 @@
-# Hockey Stat Trivia Game
+# Hockey Stats Trivia Game
 
 This game challenges users' knowledge of hockey statistics, by letting the user choose a hockey season and guessing which randomly chosen teams had the better statistic that is also randomly chosen. If the user guesses the correct team, a point will added to their score. 
 
