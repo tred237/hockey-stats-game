@@ -54,8 +54,10 @@ const init = () => {
         fetch(seasonEndPoint)
         .then(res => res.json())
         .then(data => {
+            const statList = ['goalsScored', 'goalsAgainst', 'points', 'wins', 'losses'];
+            const chosenStat = chooseRandomStat(statList);
             const chosenTeams = findTeamPairing(data);
-            chosenTeams.forEach(element => retrieveTeamData(data, element))
+            chosenTeams.forEach(element => retrieveTeamData(data, element, chosenStat))
         })
     }
 
@@ -78,12 +80,16 @@ const init = () => {
         return teamsList[Math.floor(Math.random() * teamsList.length)]
     }
 
+    function chooseRandomStat(stat){
+        return stat[Math.floor(Math.random() * stat.length)]
+    }
+
     // checks which team the id is attached to and pulls the name and wins for that team/season
-    function retrieveTeamData(seasonData, teamId){
+    function retrieveTeamData(seasonData, teamId, stat){
         seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => {
             if(innerElement.team.id === teamId){
                 const p = document.createElement('p');
-                p.textContent = `${innerElement.team.name} , ${innerElement.goalsScored}`;
+                stat === 'wins' || stat === 'losses' ? p.textContent = `${innerElement.team.name} , ${innerElement.leagueRecord[stat]}` : p.textContent = `${innerElement.team.name} , ${innerElement[stat]}`;
                 document.getElementById('selection-container').appendChild(p);
             }
         }))
