@@ -28,19 +28,23 @@ const init = () => {
     }
 
 
-    const gameForm = document.getElementById('main-game-form')
-    gameForm.addEventListener('submit', handleForm)
+    const gameForm = document.getElementById('main-game-form');
+    gameForm.addEventListener('submit', handleForm);
 
     function handleForm(e){
         e.preventDefault();
-        const dropDownSelection = document.getElementById('season-dropdown').value
-        const p = document.createElement('p')
+        document.querySelector('p').remove();
+
+        const dropDownSelection = document.getElementById('season-dropdown').value;
+        if(dropDownSelection === '') return alert('Need to choose a season');
+        
+        const p = document.createElement('p');
         p.textContent = dropDownSelection;
-        document.getElementById('selection-container').appendChild(p)
+        document.getElementById('selection-container').appendChild(p);
     }
 
 
-    populateSeasonDropDown()
+    populateSeasonDropDown();
 
 }
 
