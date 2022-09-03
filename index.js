@@ -33,14 +33,30 @@ const init = () => {
 
     function handleForm(e){
         e.preventDefault();
-        if(document.querySelector('p')) document.querySelector('p').remove();
+        // if(document.querySelector('p')) document.querySelector('p').remove();  SAVE
+        if(document.querySelectorAll('p')) document.querySelectorAll('p').forEach(element => element.remove())
 
         const dropDownSelection = document.getElementById('season-dropdown').value;
         if(dropDownSelection === '') return alert('Need to choose a season');
         
-        const p = document.createElement('p');
-        p.textContent = dropDownSelection;
-        document.getElementById('selection-container').appendChild(p);
+        // const p = document.createElement('p');
+        // p.textContent = dropDownSelection;
+        // document.getElementById('selection-container').appendChild(p);
+        chooseTeamsOnSubmit(dropDownSelection);
+    }
+
+    function chooseTeamsOnSubmit(chosenSeason){
+        //create an array to pull all of the available team ids in a season
+        //randomly choose 2 ids in the array
+        //add the ids and season to endpoint string
+        // fetch('https://statsapi.web.nhl.com/api/v1/standings?20212022')
+        const seasonEndPoint = `https://statsapi.web.nhl.com/api/v1/standings?season=${chosenSeason}`
+        fetch(seasonEndPoint)
+        .then(res => res.json())
+        .then(data => {
+            const chosenTeams = findTeamPairing(data);
+            chosenTeams.forEach(element => retrieveTeamData(data, element))
+        })
     }
 
     function findTeamPairing(seasonData){
@@ -62,25 +78,12 @@ const init = () => {
         return teamsList[Math.floor(Math.random() * teamsList.length)]
     }
 
-
-    //create an array to pull all of the available team ids in a season
-    //randomly choose 2 ids in the array
-    //add the ids and season to endpoint string
-    fetch('https://statsapi.web.nhl.com/api/v1/standings?20212022')
-    .then(res => res.json())
-    .then(data => {
-        const chosenTeams = findTeamPairing(data);
-        chosenTeams.forEach(element => retrieveTeamData(data, element))
-    })
-
     // checks which team the id is attached to and pulls the name and wins for that team/season
     function retrieveTeamData(seasonData, teamId){
         seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => {
             if(innerElement.team.id === teamId){
-                console.log(innerElement.team.name)
-                console.log(innerElement.regulationWins)
                 const p = document.createElement('p');
-                p.textContent = `${innerElement.team.name} , ${innerElement.regulationWins}`;
+                p.textContent = `${innerElement.team.name} , ${innerElement.goalsScored}`;
                 document.getElementById('selection-container').appendChild(p);
             }
         }))
