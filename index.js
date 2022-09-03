@@ -33,7 +33,7 @@ const init = () => {
 
     function handleForm(e){
         e.preventDefault();
-        document.querySelector('p').remove();
+        if(document.querySelector('p')) document.querySelector('p').remove();
 
         const dropDownSelection = document.getElementById('season-dropdown').value;
         if(dropDownSelection === '') return alert('Need to choose a season');
