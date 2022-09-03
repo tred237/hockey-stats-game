@@ -7,7 +7,7 @@ const init = () => {
         return `${year}${month}${day}`;
     }
 
-    function createdDropDownElement (element, category) {
+    function createDropDownElement (element, category) {
         const dropdown = document.getElementById(`${category}-dropdown`); 
         const option = document.createElement('option');
         option.value = element;
@@ -22,7 +22,7 @@ const init = () => {
         .then(res => res.json())
         .then(data => {
             data.seasons.forEach(element => {
-                if(element.seasonEndDate.replaceAll('-','') < getCurrentDate()) createdDropDownElement(element.seasonId, 'season');
+                if(element.seasonEndDate.replaceAll('-','') < getCurrentDate()) createDropDownElement(element.seasonId, 'season');
             })
         })
     }
