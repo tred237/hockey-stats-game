@@ -1,9 +1,9 @@
 const init = () => {
     const getCurrentDate = () => {
         const date = new Date();
-        let year = date.getFullYear().toString();
-        let month = date.getMonth().toString().length === 1 ? `0${date.getMonth().toString()}` : date.getMonth().toString();
-        let day = date.getDate().toString().length === 1 ? `0${date.getDate().toString()}` : date.getDate().toString();
+        const year = date.getFullYear().toString();
+        const month = date.getMonth().toString().length === 1 ? `0${date.getMonth().toString()}` : date.getMonth().toString();
+        const day = date.getDate().toString().length === 1 ? `0${date.getDate().toString()}` : date.getDate().toString();
         return `${year}${month}${day}`;
     }
 
@@ -17,7 +17,7 @@ const init = () => {
     }
 
     function populateSeasonDropDown() {
-        let seasonsEndPoint = 'https://statsapi.web.nhl.com/api/v1/seasons';
+        const seasonsEndPoint = 'https://statsapi.web.nhl.com/api/v1/seasons';
         fetch(seasonsEndPoint)
         .then(res => res.json())
         .then(data => {
@@ -43,9 +43,36 @@ const init = () => {
         document.getElementById('selection-container').appendChild(p);
     }
 
+    //create an array to pull all of the available team ids in a season
+    //randomly choose 2 ids in the array
+    //add the ids and season to endpoint string
+    fetch('https://statsapi.web.nhl.com/api/v1/standings?20212022')
+    .then(res => res.json())
+    .then(data => {
+        const chosenTeams = findTeamPairing(data);
+    })
+
+    function findTeamPairing(seasonData){
+        const teams = [];
+        const chosenTeams = [];
+
+        seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => teams.push(innerElement.team.id))); //available teamids for seasons
+
+        chosenTeams.push(chooseRandomTeam(teams));
+
+        while(chosenTeams.length < 2){
+            const newTeam = chooseRandomTeam(teams);
+            if(! chosenTeams.includes(newTeam)) chosenTeams.push(newTeam);
+        }
+        return chosenTeams;
+    }
+
+    function chooseRandomTeam(teamsList){
+        return teamsList[Math.floor(Math.random() * teamsList.length)]
+    }
 
     populateSeasonDropDown();
 
 }
 
-addEventListener('DOMContentLoaded', init)
+addEventListener('DOMContentLoaded', init);
