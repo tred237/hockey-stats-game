@@ -55,7 +55,7 @@ const init = () => {
         .then(res => res.json())
         .then(data => {
             const statList = ['goalsScored', 'goalsAgainst', 'points', 'wins', 'losses'];
-            const chosenStat = chooseRandomStat(statList);
+            const chosenStat = chooseRandomValue(statList);
             const chosenTeams = findTeamPairing(data);
             chosenTeams.forEach(element => retrieveTeamData(data, element, chosenStat))
         })
@@ -67,21 +67,17 @@ const init = () => {
 
         seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => teams.push(innerElement.team.id))); //available teamids for seasons
 
-        chosenTeams.push(chooseRandomTeam(teams));
+        chosenTeams.push(chooseRandomValue(teams));
 
         while(chosenTeams.length < 2){
-            const newTeam = chooseRandomTeam(teams);
+            const newTeam = chooseRandomValue(teams);
             if(! chosenTeams.includes(newTeam)) chosenTeams.push(newTeam);
         }
         return chosenTeams;
     }
 
-    function chooseRandomTeam(teamsList){
-        return teamsList[Math.floor(Math.random() * teamsList.length)]
-    }
-
-    function chooseRandomStat(stat){
-        return stat[Math.floor(Math.random() * stat.length)]
+    function chooseRandomValue(arr){
+        return arr[Math.floor(Math.random() * arr.length)]
     }
 
     // checks which team the id is attached to and pulls the name and wins for that team/season
@@ -89,7 +85,7 @@ const init = () => {
         seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => {
             if(innerElement.team.id === teamId){
                 const p = document.createElement('p');
-                stat === 'wins' || stat === 'losses' ? p.textContent = `${innerElement.team.name} , ${innerElement.leagueRecord[stat]}` : p.textContent = `${innerElement.team.name} , ${innerElement[stat]}`;
+                stat === 'wins' || stat === 'losses' ? p.textContent = `${innerElement.team.name} , ${stat}: ${innerElement.leagueRecord[stat]}` : p.textContent = `${innerElement.team.name} , ${stat}: ${innerElement[stat]}`;
                 document.getElementById('selection-container').appendChild(p);
             }
         }))
