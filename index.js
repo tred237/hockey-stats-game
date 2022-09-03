@@ -27,6 +27,19 @@ const init = () => {
         })
     }
 
+
+    const gameForm = document.getElementById('main-game-form')
+    gameForm.addEventListener('submit', handleForm)
+
+    function handleForm(e){
+        e.preventDefault();
+        const dropDownSelection = document.getElementById('season-dropdown').value
+        const p = document.createElement('p')
+        p.textContent = dropDownSelection;
+        document.getElementById('selection-container').appendChild(p)
+    }
+
+
     populateSeasonDropDown()
 
 }
