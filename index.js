@@ -71,6 +71,8 @@ const init = () => {
         return teamsList[Math.floor(Math.random() * teamsList.length)]
     }
 
+    
+
     populateSeasonDropDown();
 
 }
