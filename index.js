@@ -11,7 +11,7 @@ const init = () => {
         const dropdown = document.getElementById(`${category}-dropdown`); 
         const option = document.createElement('option');
         option.value = element;
-        option.textContent = element;
+        option.textContent = `${element.slice(0,4)}-${element.slice(4)}`;
         dropdown.appendChild(option);
         dropdown.insertBefore(option, dropdown.children[1]);
     }
@@ -37,7 +37,7 @@ const init = () => {
         if(document.querySelectorAll('p')) document.querySelectorAll('p').forEach(element => element.remove())
 
         const dropDownSelection = document.getElementById('season-dropdown').value;
-        if(dropDownSelection === '') return alert('Need to choose a season');
+        if(dropDownSelection === '') return alert('Oops! You need to choose a valid season.');
         
         // const p = document.createElement('p');
         // p.textContent = dropDownSelection;
