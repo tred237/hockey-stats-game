@@ -55,9 +55,11 @@ const init = () => {
         .then(res => res.json())
         .then(data => {
             const statList = ['goalsScored', 'goalsAgainst', 'points', 'wins', 'losses'];
+            const chosenTeamData = [];
             const chosenStat = chooseRandomValue(statList);
             const chosenTeams = findTeamPairing(data);
-            chosenTeams.forEach(element => retrieveTeamData(data, element, chosenStat))
+            chosenTeams.forEach(element => chosenTeamData.push(retrieveTeamData(data, element, chosenStat)));
+            console.log(chosenTeamData)
         })
     }
 
@@ -82,15 +84,22 @@ const init = () => {
 
     // checks which team the id is attached to and pulls the name and wins for that team/season
     function retrieveTeamData(seasonData, teamId, stat){
+        const teamObj = {};
         seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => {
             if(innerElement.team.id === teamId){
-                const p = document.createElement('p');
-                stat === 'wins' || stat === 'losses' ? p.textContent = `${innerElement.team.name} , ${stat}: ${innerElement.leagueRecord[stat]}` : p.textContent = `${innerElement.team.name} , ${stat}: ${innerElement[stat]}`;
-                document.getElementById('selection-container').appendChild(p);
+                if(stat === 'wins' || stat === 'losses'){
+                    teamObj.team = innerElement.team.name;
+                    teamObj.stat = innerElement.leagueRecord[stat];
+                    teamObj.statVal = innerElement.leagueRecord[stat];
+                } else {
+                    teamObj.team = innerElement.team.name;
+                    teamObj.stat = stat;
+                    teamObj.statVal = innerElement[stat];
+                }
             }
         }))
+        return teamObj;
     }
-
 
 
 
