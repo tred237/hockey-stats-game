@@ -29,11 +29,17 @@ const init = () => {
 
     function handleForm(e){
         e.preventDefault();
+        const submitButton = document.getElementById('submit-button');
+        submitButton.disabled = true
+        setTimeout(() => submitButton.disabled = false, 300)
         if(document.getElementById('card-container')) document.getElementById('card-container').remove();  //SAVE
         // if(document.querySelectorAll('p')) document.querySelectorAll('p').forEach(element => element.remove()) //SAVE
 
         const dropDownSelection = document.getElementById('season-dropdown').value;
-        if(dropDownSelection === '') return alert('Oops! You need to choose a valid season.');
+        if(dropDownSelection === '') {
+            submitButton.disabled = false;
+            return alert('Oops! You need to choose a valid season.')
+        }
         chooseTeamsOnSubmit(dropDownSelection);
     }
 
@@ -68,10 +74,11 @@ const init = () => {
                     console.log('yay')
                     score = score+=1
                     scoreCounter.textContent = score
+                    btn1.remove()
+                    btn2.remove()
                 } else {
                     console.log('boo')
                 }
-
             })
 
             btn2.addEventListener('click', e => {
@@ -80,10 +87,11 @@ const init = () => {
                     console.log('yay')
                     score = score+=1
                     scoreCounter.textContent = score
+                    btn1.remove()
+                    btn2.remove()
                 } else {
                     console.log('boo')
                 }
-
             })
 
             cardContainer.appendChild(btn1)
