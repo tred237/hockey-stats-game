@@ -27,21 +27,13 @@ const init = () => {
         })
     }
 
-
-    const gameForm = document.getElementById('main-game-form');
-    gameForm.addEventListener('submit', handleForm);
-
     function handleForm(e){
         e.preventDefault();
-        // if(document.querySelector('p')) document.querySelector('p').remove();  SAVE
-        if(document.querySelectorAll('p')) document.querySelectorAll('p').forEach(element => element.remove())
+        if(document.getElementById('card-container')) document.getElementById('card-container').remove();  //SAVE
+        // if(document.querySelectorAll('p')) document.querySelectorAll('p').forEach(element => element.remove()) //SAVE
 
         const dropDownSelection = document.getElementById('season-dropdown').value;
         if(dropDownSelection === '') return alert('Oops! You need to choose a valid season.');
-        
-        // const p = document.createElement('p');
-        // p.textContent = dropDownSelection;
-        // document.getElementById('selection-container').appendChild(p);
         chooseTeamsOnSubmit(dropDownSelection);
     }
 
@@ -60,6 +52,49 @@ const init = () => {
             const chosenTeams = findTeamPairing(data);
             chosenTeams.forEach(element => chosenTeamData.push(retrieveTeamData(data, element, chosenStat)));
             console.log(chosenTeamData)
+
+
+            const selectionContainer = document.getElementById('selection-container')
+            const cardContainer = document.createElement('div')
+            cardContainer.id = 'card-container'
+            cardContainer.className = 'container'
+
+            const btn1 = document.createElement('button')
+            const btn2 = document.createElement('button')
+
+            btn1.addEventListener('click', e => {
+                const scoreCounter = document.getElementById('score')
+                if(chosenTeamData[0].statVal > chosenTeamData[1].statVal){
+                    console.log('yay')
+                    score = score+=1
+                    scoreCounter.textContent = score
+                } else {
+                    console.log('boo')
+                }
+
+            })
+
+            btn2.addEventListener('click', e => {
+                const scoreCounter = document.getElementById('score')
+                if(chosenTeamData[1].statVal > chosenTeamData[0].statVal){
+                    console.log('yay')
+                    score = score+=1
+                    scoreCounter.textContent = score
+                } else {
+                    console.log('boo')
+                }
+
+            })
+
+            cardContainer.appendChild(btn1)
+            btn1.textContent = `choice 1`
+            cardContainer.appendChild(btn2)
+            btn2.textContent = `choice 2`
+            selectionContainer.appendChild(cardContainer)
+
+
+
+
         })
     }
 
@@ -101,9 +136,11 @@ const init = () => {
         return teamObj;
     }
 
-
-
+    let score = 0;
+    document.getElementById('score').textContent = score;
     populateSeasonDropDown();
+    const gameForm = document.getElementById('main-game-form');
+    gameForm.addEventListener('submit', handleForm);
 
 }
 
