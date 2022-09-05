@@ -1,9 +1,44 @@
+* {
+    font-family: Monaco;
+}
+
 body {
-    background-color: red;
+    background-color: black;
+    color: white;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
 }
 
 footer {
     position: absolute;
     bottom: 0;
     padding-bottom: 20px;
+}
+
+#card-table {
+    text-align: center;
+    border:1px solid black;
+    width: 50%;
+    margin: auto;
+}
+
+form {
+    text-align: center;
+}
+
+#score-table {
+    text-align: center;
+    margin: auto;
+    width: 15%;
+}
+
+#counter-container {
+    height: 50px;
+}
+
+footer {
+    text-align: center;
+    width: 100%;
+    color: white
 }
