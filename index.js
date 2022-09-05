@@ -78,8 +78,8 @@ const init = () => {
                 document.getElementById('cell-23').textContent = chosenTeamData[1].statVal
             }, 100)
             
-
-            selectionContainer.appendChild(selectionTable)
+            cardContainer.appendChild(selectionTable)
+            selectionContainer.appendChild(cardContainer)
 
 
             // const btn1 = document.createElement('button')
