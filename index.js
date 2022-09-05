@@ -75,7 +75,7 @@ const init = () => {
             setTimeout(() => {
                 document.getElementById('cell-21').textContent = chosenTeamData[0].team;
                 // document.getElementById('cell-11').textContent = chosenTeamData[0].statVal;
-                document.getElementById('cell-22').textContent = chosenTeamData[0].stat;
+                document.getElementById('cell-22').textContent = formatStat(chosenTeamData[0].stat);
                 document.getElementById('cell-23').textContent = chosenTeamData[1].team;
                 // document.getElementById('cell-13').textContent = chosenTeamData[1].statVal;
             }, 100)
@@ -86,6 +86,10 @@ const init = () => {
             document.getElementById('button-left').addEventListener('click', e => handleTeamButton(e, chosenTeamData));
             document.getElementById('button-right').addEventListener('click', e => handleTeamButton(e, chosenTeamData));
         })
+    }
+
+    function formatStat(statName){
+      return ['goalsScored', 'goalsAgainst'].includes(statName) ? statName.charAt(0).toUpperCase() + statName.slice(1,5) + ' ' + statName.slice(5) : statName.charAt(0).toUpperCase() + statName.slice(1);
     }
 
     function handleTeamButton(e, teamData){
