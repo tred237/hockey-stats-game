@@ -42,3 +42,13 @@ footer {
     width: 100%;
     color: white
 }
+
+img {
+    width: 275px;
+    height: 250px;
+    text-align: center;
+}
+
+#img-credit {
+    font-size: xx-small;
+}
