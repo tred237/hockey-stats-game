@@ -56,10 +56,6 @@ const init = () => {
             const cardContainer = document.createElement('div')
             cardContainer.id = 'card-container'
             cardContainer.className = 'container'
-            // const btn1 = document.createElement('button')
-            // const btn2 = document.createElement('button')
-            // btn1.textContent = `choice 1`
-            // btn2.textContent = `choice 2`
 
             const selectionTable = createTable();
 
@@ -68,7 +64,6 @@ const init = () => {
             const chosenStat = chooseRandomValue(statList);
             const chosenTeams = findTeamPairing(data);
             chosenTeams.forEach(element => chosenTeamData.push(retrieveTeamData(data, element, chosenStat)));
-            console.log(chosenTeamData)
 
             setTimeout(() => {
                 document.getElementById('cell-11').textContent = chosenTeamData[0].team
@@ -82,41 +77,46 @@ const init = () => {
             selectionContainer.appendChild(cardContainer)
 
 
-            // const btn1 = document.createElement('button')
-            // const btn2 = document.createElement('button')
+            const btnRight = document.getElementById('button-left')
+            const btnLeft = document.getElementById('button-right')
 
-            // btn1.addEventListener('click', e => {
-            //     const scoreCounter = document.getElementById('score')
-            //     if(chosenTeamData[0].statVal > chosenTeamData[1].statVal){
-            //         console.log('yay')
-            //         score = score+=1
-            //         scoreCounter.textContent = score
-            //         btn1.remove()
-            //         btn2.remove()
-            //     }
-            // })
-
-            // btn2.addEventListener('click', e => {
-            //     const scoreCounter = document.getElementById('score')
-            //     if(chosenTeamData[1].statVal > chosenTeamData[0].statVal){
-            //         score = score+=1
-            //         scoreCounter.textContent = score
-            //         btn1.remove()
-            //         btn2.remove()
-            //     }
-            // })
-
-            // cardContainer.appendChild(btn1)
-            // btn1.textContent = `choice 1`
-            // cardContainer.appendChild(btn2)
-            // btn2.textContent = `choice 2`
-            // selectionContainer.appendChild(cardContainer)
+            btnLeft.addEventListener('click', handleTeamButton)
+            btnRight.addEventListener('click', handleTeamButton)
         })
     }
 
+    function handleTeamButton(e){
+        const cardContainer = document.getElementById('card-container');
+        const scoreCounter = document.getElementById('score');
+        const isLeftButton = e.target.id === 'button-left';
+        const leftStat = parseInt(document.getElementById('cell-21').textContent,10);
+        const rightStat = parseInt(document.getElementById('cell-23').textContent,10);
+        document.getElementById('card-table').remove();
+
+        if(leftStat === rightStat) {
+            cardContainer.textContent = 'It\'s a tie! Free point! Try another!'
+        } else if (isLeftButton){
+            if(leftStat > rightStat) {
+                score = score+=1
+                scoreCounter.textContent = score
+                cardContainer.textContent = 'Correct! Try another!'
+            } else {
+                cardContainer.textContent = 'Oh no! That\'s wrong! Try another!'
+            }
+        } else {
+            if(rightStat > leftStat) {
+                score = score+=1
+                scoreCounter.textContent = score
+                cardContainer.textContent = 'Correct! Try another!'
+            } else {
+                cardContainer.textContent = 'Oh no! That\'s wrong! Try another!'
+            }
+        }
+    }
 
     function createTable(){
         const tableElement = document.createElement('table')
+        tableElement.id = 'card-table'
         
         for(let i = 1; i < 4; i++){
             buildTableStructure(i, tableElement)
@@ -130,7 +130,9 @@ const init = () => {
         const tr = document.createElement('tr')
         const buttonLeft = document.createElement('button')
         const buttonRight = document.createElement('button')
+        buttonLeft.id = 'button-left'
         buttonLeft.textContent = 'This Team!'
+        buttonRight.id = 'button-right'
         buttonRight.textContent = 'No, This Team!'
 
         for(let j = 1; j < 4; j++){
