@@ -95,14 +95,20 @@ const init = () => {
         const cardContainer = document.getElementById('card-container');
         const scoreCounter = document.getElementById('score');
         const isLeftButton = e.target.id === 'button-left';
+        const stat = document.getElementById('cell-22').textContent;
         const leftStat = parseInt(document.getElementById('cell-21').textContent,10);
         const rightStat = parseInt(document.getElementById('cell-23').textContent,10);
+        const positiveStat = ['wins', 'points', 'goalsScored'].includes(stat);
         document.getElementById('card-table').remove();
-
+    
         if(leftStat === rightStat) {
             cardContainer.textContent = 'It\'s a tie! Free point! Try another!';
         } else if (isLeftButton){
-            if(leftStat > rightStat) {
+            if(leftStat > rightStat && positiveStat) {
+                score = score+=1;
+                scoreCounter.textContent = score;
+                cardContainer.textContent = 'Correct! Try another!';
+            } else if(leftStat < rightStat && !positiveStat) {
                 score = score+=1;
                 scoreCounter.textContent = score;
                 cardContainer.textContent = 'Correct! Try another!';
@@ -110,7 +116,11 @@ const init = () => {
                 cardContainer.textContent = 'Oh no! That\'s wrong! Try another!';
             }
         } else {
-            if(rightStat > leftStat) {
+            if(rightStat > leftStat && positiveStat) {
+                score = score+=1;
+                scoreCounter.textContent = score;
+                cardContainer.textContent = 'Correct! Try another!';
+            } else if(rightStat < leftStat && !positiveStat) {
                 score = score+=1;
                 scoreCounter.textContent = score;
                 cardContainer.textContent = 'Correct! Try another!';
@@ -130,7 +140,6 @@ const init = () => {
 
         return tableElement;
     }
-
 
     function buildTableStructure(iterator, tableElement){
         const tr = document.createElement('tr');
@@ -158,7 +167,6 @@ const init = () => {
 
         tableElement.appendChild(tr);
     }
-
 
     function findTeamPairing(seasonData){
         const teams = [];
