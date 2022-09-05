@@ -60,12 +60,8 @@ const init = () => {
             // const btn2 = document.createElement('button')
             // btn1.textContent = `choice 1`
             // btn2.textContent = `choice 2`
-            
-            const selectionTable = document.createElement('table')
-        
-            for(let i = 1; i < 4; i++){
-                createTable(i, selectionTable)
-            }
+
+            const selectionTable = createTable();
 
             const statList = ['goalsScored', 'goalsAgainst', 'points', 'wins', 'losses'];
             const chosenTeamData = [];
@@ -118,7 +114,19 @@ const init = () => {
         })
     }
 
-    function createTable(iterator, tableElement){
+
+    function createTable(){
+        const tableElement = document.createElement('table')
+        
+        for(let i = 1; i < 4; i++){
+            buildTableStructure(i, tableElement)
+        }
+
+        return tableElement;
+    }
+
+
+    function buildTableStructure(iterator, tableElement){
         const tr = document.createElement('tr')
         const buttonLeft = document.createElement('button')
         const buttonRight = document.createElement('button')
@@ -128,13 +136,16 @@ const init = () => {
         for(let j = 1; j < 4; j++){
             const td = document.createElement('td')
             td.id = `cell-${iterator}${j}`
+
             if(td.id === 'cell-31'){
                 td.appendChild(buttonLeft)
             } else if(td.id === 'cell-33'){
                 td.appendChild(buttonRight)
             }
+
             tr.appendChild(td)
         }
+
         tableElement.appendChild(tr)
     }
 
