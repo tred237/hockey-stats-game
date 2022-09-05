@@ -97,35 +97,32 @@ const init = () => {
         const rightStat = teamData[1].statVal;
         const positiveStat = ['wins', 'points', 'goalsScored'].includes(stat);
         document.getElementById('card-table').remove();
-    
-        if(leftStat === rightStat) {
-            cardContainer.textContent = 'It\'s a tie! Free point! Try another!';
-        } else if (isLeftButton){
-            if(leftStat > rightStat && positiveStat) {
-                score = score+=1;
-                scoreCounter.textContent = score;
-                cardContainer.textContent = 'Correct! Try another!';
-            } else if(leftStat < rightStat && !positiveStat) {
-                score = score+=1;
-                scoreCounter.textContent = score;
-                cardContainer.textContent = 'Correct! Try another!';
-            } else {
-                cardContainer.textContent = 'Oh no! That\'s wrong! Try another!';
-            }
+        const statEval = isLeftButton ? statEvaluation(leftStat, rightStat, positiveStat) : statEvaluation(rightStat, leftStat, positiveStat);
+
+
+        if(leftStat === rightStat) cardContainer.textContent = 'It\'s a tie! Free point! Try another!'
+        else if(isLeftButton && statEval) {
+            score = score+=1;
+            scoreCounter.textContent = score;
+            cardContainer.textContent = 'Correct! Try another!';
+        } else if(!isLeftButton && statEval){
+            score = score+=1;
+            scoreCounter.textContent = score;
+            cardContainer.textContent = 'Correct! Try another!';
         } else {
-            if(rightStat > leftStat && positiveStat) {
-                score = score+=1;
-                scoreCounter.textContent = score;
-                cardContainer.textContent = 'Correct! Try another!';
-            } else if(rightStat < leftStat && !positiveStat) {
-                score = score+=1;
-                scoreCounter.textContent = score;
-                cardContainer.textContent = 'Correct! Try another!';
-            } else {
-                cardContainer.textContent = 'Oh no! That\'s wrong! Try another!';
-            }
+            cardContainer.textContent = 'Oh no! That\'s wrong! Try another!';
         }
     }
+
+    function statEvaluation(stat1, stat2, positiveStat){
+        if(positiveStat){
+            if(stat1 > stat2) return true
+        } else {
+            if(stat1 < stat2) return true
+        }  
+        return false
+    }
+
 
     function createTable(){
         const tableElement = document.createElement('table');
