@@ -73,31 +73,28 @@ const init = () => {
             chosenTeams.forEach(element => chosenTeamData.push(retrieveTeamData(data, element, chosenStat)));
 
             setTimeout(() => {
-                document.getElementById('cell-11').textContent = chosenTeamData[0].team;
-                document.getElementById('cell-21').textContent = chosenTeamData[0].statVal;
+                document.getElementById('cell-21').textContent = chosenTeamData[0].team;
+                // document.getElementById('cell-11').textContent = chosenTeamData[0].statVal;
                 document.getElementById('cell-22').textContent = chosenTeamData[0].stat;
-                document.getElementById('cell-13').textContent = chosenTeamData[1].team;
-                document.getElementById('cell-23').textContent = chosenTeamData[1].statVal;
+                document.getElementById('cell-23').textContent = chosenTeamData[1].team;
+                // document.getElementById('cell-13').textContent = chosenTeamData[1].statVal;
             }, 100)
             
             cardContainer.appendChild(selectionTable);
             selectionContainer.appendChild(cardContainer);
 
-            const btnRight = document.getElementById('button-left');
-            const btnLeft = document.getElementById('button-right');
-
-            btnLeft.addEventListener('click', handleTeamButton);
-            btnRight.addEventListener('click', handleTeamButton);
+            document.getElementById('button-left').addEventListener('click', e => handleTeamButton(e, chosenTeamData));
+            document.getElementById('button-right').addEventListener('click', e => handleTeamButton(e, chosenTeamData));
         })
     }
 
-    function handleTeamButton(e){
+    function handleTeamButton(e, teamData){
         const cardContainer = document.getElementById('card-container');
         const scoreCounter = document.getElementById('score');
         const isLeftButton = e.target.id === 'button-left';
-        const stat = document.getElementById('cell-22').textContent;
-        const leftStat = parseInt(document.getElementById('cell-21').textContent,10);
-        const rightStat = parseInt(document.getElementById('cell-23').textContent,10);
+        const stat = teamData[0].stat;
+        const leftStat = teamData[0].statVal;
+        const rightStat = teamData[1].statVal;
         const positiveStat = ['wins', 'points', 'goalsScored'].includes(stat);
         document.getElementById('card-table').remove();
     
