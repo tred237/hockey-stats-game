@@ -6,3 +6,4 @@ The data pulled for this application, comes from a public API that features stat
 
 ## License/API
 [nhlapi] (https://gitlab.com/dword4/nhlapi)
+Image Credit: [Klara_Steffkova / Shutterstock.com] (https://www.shutterstock.com/image-photo/nhl-ceremony-stanley-cup-trophy-on-1074054581)
