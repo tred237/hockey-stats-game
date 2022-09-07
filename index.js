@@ -74,10 +74,10 @@ const init = () => {
 
             setTimeout(() => {
                 document.getElementById('cell-21').textContent = chosenTeamData[0].team;
-                // document.getElementById('cell-11').textContent = chosenTeamData[0].statVal;
+                document.getElementById('cell-11').textContent = chosenTeamData[0].statVal;
                 document.getElementById('cell-22').textContent = formatStat(chosenTeamData[0].stat);
                 document.getElementById('cell-23').textContent = chosenTeamData[1].team;
-                // document.getElementById('cell-13').textContent = chosenTeamData[1].statVal;
+                document.getElementById('cell-13').textContent = chosenTeamData[1].statVal;
             }, 100)
             
             cardContainer.appendChild(selectionTable);
@@ -103,13 +103,8 @@ const init = () => {
         document.getElementById('card-table').remove();
         const statEval = isLeftButton ? statEvaluation(leftStat, rightStat, positiveStat) : statEvaluation(rightStat, leftStat, positiveStat);
 
-
         if(leftStat === rightStat) cardContainer.textContent = 'It\'s a tie! Free point! Try another!'
-        else if(isLeftButton && statEval) {
-            score = score+=1;
-            scoreCounter.textContent = score;
-            cardContainer.textContent = 'Correct! Try another!';
-        } else if(!isLeftButton && statEval){
+        else if(isLeftButton && statEval || !isLeftButton && statEval) {
             score = score+=1;
             scoreCounter.textContent = score;
             cardContainer.textContent = 'Correct! Try another!';
