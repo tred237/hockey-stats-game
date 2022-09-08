@@ -115,13 +115,12 @@ const init = () => {
 
     function statEvaluation(stat1, stat2, positiveStat){
         if(positiveStat){
-            if(stat1 > stat2) return true
+            if(stat1 > stat2) return true;
         } else {
-            if(stat1 < stat2) return true
+            if(stat1 < stat2) return true;
         }  
         return false
     }
-
 
     function createTable(){
         const tableElement = document.createElement('table');
