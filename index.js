@@ -74,10 +74,10 @@ const init = () => {
 
             setTimeout(() => {
                 document.getElementById('cell-21').textContent = chosenTeamData[0].team;
-                document.getElementById('cell-11').textContent = chosenTeamData[0].statVal;
+                // document.getElementById('cell-11').textContent = chosenTeamData[0].statVal;
                 document.getElementById('cell-22').textContent = formatStat(chosenTeamData[0].stat);
                 document.getElementById('cell-23').textContent = chosenTeamData[1].team;
-                document.getElementById('cell-13').textContent = chosenTeamData[1].statVal;
+                // document.getElementById('cell-13').textContent = chosenTeamData[1].statVal;
             }, 100)
             
             cardContainer.appendChild(selectionTable);
