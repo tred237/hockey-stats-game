@@ -51,10 +51,6 @@ const init = () => {
     }
 
     function chooseTeamsOnSubmit(chosenSeason){
-        //create an array to pull all of the available team ids in a season
-        //randomly choose 2 ids in the array
-        //add the ids and season to endpoint string
-        // fetch('https://statsapi.web.nhl.com/api/v1/standings?20212022')
         const seasonEndPoint = `https://statsapi.web.nhl.com/api/v1/standings?season=${chosenSeason}`
         fetch(seasonEndPoint)
         .then(res => res.json())
@@ -74,10 +70,8 @@ const init = () => {
 
             setTimeout(() => {
                 document.getElementById('cell-21').textContent = chosenTeamData[0].team;
-                // document.getElementById('cell-11').textContent = chosenTeamData[0].statVal;
                 document.getElementById('cell-22').textContent = formatStat(chosenTeamData[0].stat);
                 document.getElementById('cell-23').textContent = chosenTeamData[1].team;
-                // document.getElementById('cell-13').textContent = chosenTeamData[1].statVal;
             }, 100)
             
             cardContainer.appendChild(selectionTable);
@@ -179,7 +173,6 @@ const init = () => {
         return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    // checks which team the id is attached to and pulls the name and wins for that team/season
     function retrieveTeamData(seasonData, teamId, stat){
         const teamObj = {};
         seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => {
