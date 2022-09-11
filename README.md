@@ -55,5 +55,3 @@ Contributions are welcome, but please open an issue first to discuss what you wo
 
 ## License/API
 API: [nhlapi](https://gitlab.com/dword4/nhlapi)
-
-Image Credit: [doodle / Shutterstock.com](https://www.shutterstock.com/image-vector/hockey-trophy-on-interesting-background-30415141)
