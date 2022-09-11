@@ -35,6 +35,8 @@ form {
 
 #counter-container {
     height: 50px;
+    padding-top: 10px;
+    padding-bottom: 25px;
 }
 
 footer {
