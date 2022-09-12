@@ -28,26 +28,24 @@ The data pulled for this application, comes from a public API that features stat
 
 Once you have cloned the repository, navigate to its root directory and open `index.html`
 	
-	```
 	cd hockey-stats-game
-    open index.html
-	```
+	open index.html
 
 The application should look identical to the screenshot below.
 
-![image](https://user-images.githubusercontent.com/103388556/189549252-27e2bc8e-106e-4437-8b0b-89f35bb6c1a7.png)
+![image](https://user-images.githubusercontent.com/103388556/189733615-0d3266c3-3e97-49b6-8ea9-7c62255759ee.png)
 
 The user should be able to choose a season in the drop down. 
 	
-![image](https://user-images.githubusercontent.com/103388556/189549346-43b56238-16a8-4fc1-942e-4c973261f6c0.png)
+![image](https://user-images.githubusercontent.com/103388556/189733846-bc0b5069-409a-4a4f-9ba3-f2c7f085153c.png)
 
 Once the user submits, two teams and a statistic should be presented, allowing the user to choose which team had the better statistic. If the user chose correctly, a point should be added to the score.
 
-![image](https://user-images.githubusercontent.com/103388556/189549384-602b0da8-5fc0-499d-a613-3a16cc0bcdb9.png)
+![image](https://user-images.githubusercontent.com/103388556/189734038-5391a62a-1082-4f3c-bd01-9b5609c74747.png)
 
 If the user wants to reset the score, the "Clear Score" button will set it back to 0.
 
-![image](https://user-images.githubusercontent.com/103388556/189549414-89443ebe-5cd5-4c32-9e36-91fbfb64e28c.png)
+![image](https://user-images.githubusercontent.com/103388556/189734236-aa4913a0-ea5c-4a50-8fc2-0e6b39717526.png)
 
 ## Contributing
 Contributions are welcome, but please open an issue first to discuss what you would like to change. If you fork the repository, please rememeber that this code is not meant to be monetizable or for commercial use.
