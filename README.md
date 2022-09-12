@@ -2,7 +2,7 @@
 
 This game challenges a user's knowledge of hockey statistics. Once the user chooses a hockey season, they will be challenged to guess which of the two randomly chosen teams had the better score for the given statistic that season. If the user guesses the correct team, a point will added to their score. 
 
-The data pulled for this application, comes from a public API that features statistics recorded from the National Hockey League. This application is by no means meant to be monetizable. It is for education purposes...and fun!
+The data pulled for this application, comes from a public API that features statistics recorded from the National Hockey League. This application is by no means meant to be monetizable or for commercial use. It is for education purposes...and fun!
 
 ## Installation
 1. At the top right of the GitHub repository screen create a new fork of the repository.
@@ -50,7 +50,7 @@ If the user wants to reset the score, the "Clear Score" button will set it back 
 ![image](https://user-images.githubusercontent.com/103388556/189549414-89443ebe-5cd5-4c32-9e36-91fbfb64e28c.png)
 
 ## Contributing
-Contributions are welcome, but please open an issue first to discuss what you would like to change.
+Contributions are welcome, but please open an issue first to discuss what you would like to change. If you fork the repository, please rememeber that this code is not meant to be monetizable or for commercial use.
 
 ## License/API
 API: [nhlapi](https://gitlab.com/dword4/nhlapi)
