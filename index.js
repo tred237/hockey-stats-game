@@ -97,8 +97,11 @@ const init = () => {
         document.getElementById('card-table').remove();
         const statEval = isLeftButton ? statEvaluation(leftStat, rightStat, positiveStat) : statEvaluation(rightStat, leftStat, positiveStat);
 
-        if(leftStat === rightStat) cardContainer.textContent = 'It\'s a tie! Free point! Try another!'
-        else if(isLeftButton && statEval || !isLeftButton && statEval) {
+        if(leftStat === rightStat){
+            score = score+=1;
+            scoreCounter.textContent = score;
+            cardContainer.textContent = 'It\'s a tie! Free point! Try another!';
+        } else if(isLeftButton && statEval || !isLeftButton && statEval) {
             score = score+=1;
             scoreCounter.textContent = score;
             cardContainer.textContent = 'Correct! Try another!';
