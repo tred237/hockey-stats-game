@@ -27,6 +27,10 @@ footer {
     margin: auto;
 }
 
+#card-table > tr > td {
+    width: 250px;
+}
+
 form {
     text-align: center;
 }
@@ -34,7 +38,7 @@ form {
 #score-table {
     text-align: center;
     margin: auto;
-    width: 15%;
+    width: 20%;
 }
 
 #counter-container {
