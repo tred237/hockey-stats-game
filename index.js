@@ -161,7 +161,7 @@ const init = () => {
         const teams = [];
         const chosenTeams = [];
 
-        seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => teams.push(innerElement.team.id))); //available teamids for seasons
+        seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => teams.push(innerElement.team.id)));
 
         chosenTeams.push(chooseRandomValue(teams));
 
@@ -182,7 +182,7 @@ const init = () => {
             if(innerElement.team.id === teamId){
                 teamObj.team = innerElement.team.name;
                 teamObj.stat = stat;
-                
+
                 if(stat === 'wins' || stat === 'losses'){
                     teamObj.statVal = innerElement.leagueRecord[stat];
                 } else {
