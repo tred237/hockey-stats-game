@@ -180,13 +180,12 @@ const init = () => {
         const teamObj = {};
         seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => {
             if(innerElement.team.id === teamId){
+                teamObj.team = innerElement.team.name;
+                teamObj.stat = stat;
+                
                 if(stat === 'wins' || stat === 'losses'){
-                    teamObj.team = innerElement.team.name;
-                    teamObj.stat = stat;
                     teamObj.statVal = innerElement.leagueRecord[stat];
                 } else {
-                    teamObj.team = innerElement.team.name;
-                    teamObj.stat = stat;
                     teamObj.statVal = innerElement[stat];
                 }
             }
