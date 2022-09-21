@@ -1,19 +1,22 @@
 const init = () => {
-    populateSeasonDropDown();
     let score = 0;
     document.getElementById('score').textContent = score;
+    
+    populateSeasonDropDown();
     document.getElementById('main-game-form').addEventListener('submit', handleForm);
     document.getElementById('clear-score-button').addEventListener('click', e => {
         score = 0;
         document.getElementById('score').textContent = score;
     })
 
-    const getCurrentDate = () => {
-        const date = new Date();
-        const year = date.getFullYear().toString();
-        const month = date.getMonth().toString().length === 1 ? `0${date.getMonth().toString()}` : date.getMonth().toString();
-        const day = date.getDate().toString().length === 1 ? `0${date.getDate().toString()}` : date.getDate().toString();
-        return `${year}${month}${day}`;
+    function populateSeasonDropDown() {
+        fetch('https://statsapi.web.nhl.com/api/v1/seasons')
+        .then(res => res.json())
+        .then(data => {
+            data.seasons.forEach(element => {
+                if(element.seasonEndDate.replaceAll('-','') < getCurrentDate()) createDropDownElement(element.seasonId, 'season');
+            })
+        })
     }
 
     function createDropDownElement (element, category) {
@@ -25,16 +28,16 @@ const init = () => {
         dropdown.insertBefore(option, dropdown.children[1]);
     }
 
-    function populateSeasonDropDown() {
-        const seasonsEndPoint = 'https://statsapi.web.nhl.com/api/v1/seasons';
-        fetch(seasonsEndPoint)
-        .then(res => res.json())
-        .then(data => {
-            data.seasons.forEach(element => {
-                if(element.seasonEndDate.replaceAll('-','') < getCurrentDate()) createDropDownElement(element.seasonId, 'season');
-            })
-        })
+    const getCurrentDate = () => {
+        const date = new Date();
+        const year = date.getFullYear().toString();
+        const month = date.getMonth().toString().length === 1 ? `0${date.getMonth().toString()}` : date.getMonth().toString();
+        const day = date.getDate().toString().length === 1 ? `0${date.getDate().toString()}` : date.getDate().toString();
+        return `${year}${month}${day}`;
     }
+
+
+
 
     function handleForm(e){
         e.preventDefault();
@@ -85,8 +88,36 @@ const init = () => {
         document.getElementById('button-right').addEventListener('click', e => handleTeamButton(e, chosenTeamData));
     }
 
-    function formatStat(statName){
-      return ['goalsScored', 'goalsAgainst'].includes(statName) ? statName.charAt(0).toUpperCase() + statName.slice(1,5) + ' ' + statName.slice(5) : statName.charAt(0).toUpperCase() + statName.slice(1);
+    function findTeamPairing(seasonData){
+        const teams = [];
+        const chosenTeams = [];
+
+        seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => teams.push(innerElement.team.id)));
+
+        chosenTeams.push(chooseRandomValue(teams));
+
+        while(chosenTeams.length < 2){
+            const newTeam = chooseRandomValue(teams);
+            if(! chosenTeams.includes(newTeam)) chosenTeams.push(newTeam);
+        }
+        return chosenTeams;
+    }
+
+    function retrieveTeamData(seasonData, teamId, stat){
+        const teamObj = {};
+        seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => {
+            if(innerElement.team.id === teamId){
+                teamObj.team = innerElement.team.name;
+                teamObj.stat = stat;
+
+                if(stat === 'wins' || stat === 'losses'){
+                    teamObj.statVal = innerElement.leagueRecord[stat];
+                } else {
+                    teamObj.statVal = innerElement[stat];
+                }
+            }
+        }))
+        return teamObj;
     }
 
     function handleTeamButton(e, teamData){
@@ -160,40 +191,12 @@ const init = () => {
         tableElement.appendChild(tr);
     }
 
-    function findTeamPairing(seasonData){
-        const teams = [];
-        const chosenTeams = [];
-
-        seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => teams.push(innerElement.team.id)));
-
-        chosenTeams.push(chooseRandomValue(teams));
-
-        while(chosenTeams.length < 2){
-            const newTeam = chooseRandomValue(teams);
-            if(! chosenTeams.includes(newTeam)) chosenTeams.push(newTeam);
-        }
-        return chosenTeams;
-    }
-
     function chooseRandomValue(arr){
         return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    function retrieveTeamData(seasonData, teamId, stat){
-        const teamObj = {};
-        seasonData.records.forEach(element => element.teamRecords.forEach(innerElement => {
-            if(innerElement.team.id === teamId){
-                teamObj.team = innerElement.team.name;
-                teamObj.stat = stat;
-
-                if(stat === 'wins' || stat === 'losses'){
-                    teamObj.statVal = innerElement.leagueRecord[stat];
-                } else {
-                    teamObj.statVal = innerElement[stat];
-                }
-            }
-        }))
-        return teamObj;
+    function formatStat(statName){
+        return ['goalsScored', 'goalsAgainst'].includes(statName) ? statName.charAt(0).toUpperCase() + statName.slice(1,5) + ' ' + statName.slice(5) : statName.charAt(0).toUpperCase() + statName.slice(1);
     }
 }
 
