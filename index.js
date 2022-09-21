@@ -51,35 +51,38 @@ const init = () => {
     }
 
     function chooseTeamsOnSubmit(chosenSeason){
-        const seasonEndPoint = `https://statsapi.web.nhl.com/api/v1/standings?season=${chosenSeason}`
-        fetch(seasonEndPoint)
+        fetch(`https://statsapi.web.nhl.com/api/v1/standings?season=${chosenSeason}`)
         .then(res => res.json())
         .then(data => {
-            const selectionContainer = document.getElementById('selection-container');
-            const cardContainer = document.createElement('div');
-            cardContainer.id = 'card-container';
-            cardContainer.className = 'container';
-
-            const selectionTable = createTable();
-
-            const statList = ['goalsScored', 'goalsAgainst', 'points', 'wins', 'losses'];
-            const chosenTeamData = [];
-            const chosenStat = chooseRandomValue(statList);
-            const chosenTeams = findTeamPairing(data);
-            chosenTeams.forEach(element => chosenTeamData.push(retrieveTeamData(data, element, chosenStat)));
-
-            setTimeout(() => {
-                document.getElementById('cell-21').textContent = chosenTeamData[0].team;
-                document.getElementById('cell-22').textContent = formatStat(chosenTeamData[0].stat);
-                document.getElementById('cell-23').textContent = chosenTeamData[1].team;
-            }, 100)
-            
-            cardContainer.appendChild(selectionTable);
-            selectionContainer.appendChild(cardContainer);
-
-            document.getElementById('button-left').addEventListener('click', e => handleTeamButton(e, chosenTeamData));
-            document.getElementById('button-right').addEventListener('click', e => handleTeamButton(e, chosenTeamData));
+            createTeamEvaluation(data);
         })
+    }
+
+    function createTeamEvaluation(data){
+        const selectionContainer = document.getElementById('selection-container');
+        const cardContainer = document.createElement('div');
+        cardContainer.id = 'card-container';
+        cardContainer.className = 'container';
+
+        const selectionTable = createTable();
+
+        const statList = ['goalsScored', 'goalsAgainst', 'points', 'wins', 'losses'];
+        const chosenTeamData = [];
+        const chosenStat = chooseRandomValue(statList);
+        const chosenTeams = findTeamPairing(data);
+        chosenTeams.forEach(element => chosenTeamData.push(retrieveTeamData(data, element, chosenStat)));
+
+        setTimeout(() => {
+            document.getElementById('cell-21').textContent = chosenTeamData[0].team;
+            document.getElementById('cell-22').textContent = formatStat(chosenTeamData[0].stat);
+            document.getElementById('cell-23').textContent = chosenTeamData[1].team;
+        }, 100)
+        
+        cardContainer.appendChild(selectionTable);
+        selectionContainer.appendChild(cardContainer);
+
+        document.getElementById('button-left').addEventListener('click', e => handleTeamButton(e, chosenTeamData));
+        document.getElementById('button-right').addEventListener('click', e => handleTeamButton(e, chosenTeamData));
     }
 
     function formatStat(statName){
